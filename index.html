@@ -21,7 +21,8 @@
         .sl{font-size:10px;color:#556677;letter-spacing:2px;margin-top:2px}
         .sec{max-width:680px;margin:0 auto;padding:36px 20px}
         .st{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:5px;color:#ff6b00;margin-bottom:18px;display:flex;align-items:center;gap:10px}
-        .st::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(255,107,0,0.4),transparent)}.rg{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:480px){.rg{grid-template-columns:1fr}}
+        .st::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(255,107,0,0.4),transparent)}
+        .rg{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:480px){.rg{grid-template-columns:1fr}}
         .rc{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-left:2px solid #ff1e50;padding:14px 16px}
         .ri{font-size:18px;margin-bottom:4px}
         .rt{font-family:'Orbitron',sans-serif;font-size:10px;color:#ff6b00;margin-bottom:4px}
@@ -38,9 +39,10 @@
         .fw::before{content:'CHALLENGE БҮРТГЭЛ';position:absolute;top:-11px;left:20px;background:#060610;padding:0 10px;font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:#ff1e50}
         .fg{margin-bottom:14px}
         .fl{display:block;font-size:10px;letter-spacing:3px;color:#556677;font-weight:700;margin-bottom:7px;font-family:'Orbitron',sans-serif}
-        .fi{width:100%;padding:11px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-bottom:1px solid rgba(0,170,255,0.3);color:#fff;font-family:'Rajdhani',sans-serif;font-size:15px;outline:none;border-radius:0}
-        .fi:focus{border-color:#00aaff;background:rgba(0,170,255,0.04)}
-        .fs{width:100%;padding:11px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-bottom:1px solid rgba(0,170,255,0.3);color:#fff;font-family:'Rajdhani',sans-serif;font-size:15px;outline:none;border-radius:0}
+        .fi,.fs{width:100%;padding:11px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-bottom:1px solid rgba(0,170,255,0.3);color:#fff;font-family:'Rajdhani',sans-serif;font-size:15px;outline:none;border-radius:0}
+        .fs option{background:#0a0a1a}
+        .fi:focus,.fs:focus{border-color:#00aaff;background:rgba(0,170,255,0.04)}
+        .fr{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:480px){.fr{grid-template-columns:1fr}}
         .sb{width:100%;padding:15px;background:linear-gradient(90deg,#ff1e50,#ff6b00);border:none;color:#fff;font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;letter-spacing:4px;cursor:pointer;margin-top:6px;transition:opacity .2s}
         .su{display:none;text-align:center;padding:36px 16px}
         .su.show{display:block}
@@ -57,95 +59,139 @@
     </div>
     <h1 class="ht">FOCUS_FLOW</h1>
     <div class="hs">1vs1 · WIN STREAK</div>
-    <p class="hd">3 Дараалж ялж шагнал ав · Алдвал Tax-тай</p>
+    <p class="hd">3 Дараалж ялбал 60💎 · Алдвал Tax-тай</p>
 </header>
 
 <div class="sr">
-    <div class="si"><div class="sv">3</div><div class="sl">STREAK</div></div>
-    <div class="si"><div class="sv" style="color:#ff1e50">1v1</div><div class="sl">BATTLE</div></div>
+    <div class="si"><div class="sv">3-0</div><div class="sl">STREAK</div></div>
+    <div class="si"><div class="sv" style="color:#ff1e50">1v1</div><div class="sl">FORMAT</div></div>
     <div class="si"><div class="sv">60💎</div><div class="sl">REWARD</div></div>
-    <div class="si"><div class="sv" style="color:#ff6b00">TAX</div><div class="sl">RE-ENTRY</div></div>
+    <div class="si"><div class="sv" style="color:#ff6b00">TAX</div><div class="sl">RESET</div></div>
 </div>
 
 <div class="sec">
     <div class="st">⚔️ ШИНЭЧЛЭГДСЭН ДҮРЭМ</div>
     <div class="rg">
-        <div class="rc"><div class="ri">🔥</div><div class="rt">WIN STREAK</div><div class="rx">Шагнал авахын тулд заавал <b>3 дараалан</b> ялах шаардлагатай.</div></div>
-        <div class="rc"><div class="ri">💀</div><div class="rt">ELIMINATION</div><div class="rx">Нэг л удаа хожигдвол таны цуглуулсан хожил хүчингүй болж хасагдана.</div></div>
-        <div class="rc"><div class="ri">🔄</div><div class="rt">RE-ENTRY</div><div class="rx">Хожигдсоны дараа дахин орохыг хүсвэл <b>Tax</b> төлж эрхээ сэргээнэ.</div></div>
-        <div class="rc"><div class="ri">💎</div><div class="rt">REWARD</div><div class="rx">3-0 харьцаатай ялж 60 Diamond шууд аваарай.</div></div>
+        <div class="rc"><div class="ri">🎯</div><div class="rt">WIN STREAK</div><div class="rx">Шагнал авахын тулд заавал <b>3 дараалж</b> ялах ёстой.</div></div>
+        <div class="rc"><div class="ri">❌</div><div class="rt">RESET</div><div class="rx">1 л хожигдвол өмнөх бүх хожил хүчингүй болж хасагдана.</div></div>
+        <div class="rc"><div class="ri">🔄</div><div class="rt">RE-ENTRY</div><div class="rx">Хожигдсон бол <b>Tax</b> төлж эрхээ сэргээн дахин оролцоно.</div></div>
+        <div class="rc"><div class="ri">💎</div><div class="rt">REWARD</div><div class="rx">Намайг 3-0 харьцаатай ялж 60 Diamond шууд аваарай.</div></div>
     </div>
 </div>
 
 <div class="sec" style="padding-top:0">
-    <div class="st">🏆 ШАГНАЛЫН НӨХЦӨЛ</div>
-    <div class="rb">
-        <div class="rr"><div class="rd"></div><div class="rdx">3 Дараалж ялбал → <strong>60 💎 Diamond</strong></div></div>
-        <div class="rr"><div class="rd b"></div><div class="rdx">1 Хожигдвол → <strong>Streaks Reset</strong> (Унах)</div></div>
-        <div class="rr"><div class="rd"></div><div class="rdx">Дахин орох → <strong>Tax төлөх</strong> (Буцаж орох эрх)</div></div>
-    </div>
-</div>
-
-<div class="sec" style="padding-top:0">
-    <div class="st">✍ CHALLENGE-Д БҮРТГҮҮЛЭХ</div>
+    <div class="st">✍ CHALLENGE БҮРТГҮҮЛЭХ</div>
     <div class="fw">
         <div id="fa">
             <div class="fg"><label class="fl">ТОГЛОГЧИЙН НЭР</label><input class="fi" id="n" placeholder="Таны MLBB нэр..."></div>
             <div class="fr">
                 <div class="fg"><label class="fl">SERVER ID</label><input class="fi" id="i" placeholder="123456789"></div>
-                <div class="fg"><label class="fl">БҮРТГЭЛИЙН ТӨРӨЛ</label>
+                <div class="fg"><label class="fl">ТӨЛӨВ</label>
                     <select class="fs" id="rtype">
-                        <option value="Шинэ бүртгэл">Шинэ бүртгэл (Анх удаа)</option>
-                        <option value="Tax төлөх">Tax төлж орох (Хожигдсон)</option>
+                        <option value="Шинэ бүртгэл">Шинэ (Анх удаа)</option>
+                        <option value="Tax төлсөн">Tax төлж орох</option>
                     </select>
                 </div>
             </div>
-            <div class="fg"><label class="fl">ХҮССЭН ЦАГ</label><select class="fs" id="t"><option value="">Цаг сонгох...</option><option>Өглөө (08:00-12:00)</option><option>Өдөр (12:00-17:00)</option><option>Орой (17:00-21:00)</option></select></div>
+            <!-- Role & Hero Selection -->
+            <div class="fr">
+                <div class="fg">
+                    <label class="fl">ROLE (БАЙРЛАЛ)</label>
+                    <select class="fs" id="roleSelect" onchange="filterHeroes()">
+                        <option value="">Role сонгох...</option>
+                        <option value="Tank">Tank</option>
+                        <option value="Fighter">Fighter</option>
+                        <option value="Assassin">Assassin</option>
+                        <option value="Mage">Mage</option>
+                        <option value="Marksman">Marksman</option>
+                        <option value="Support">Support</option>
+                    </select>
+                </div>
+                <div class="fg">
+                    <label class="fl">HERO (БААТАР)</label>
+                    <select class="fs" id="heroSelect">
+                        <option value="">Role сонгоно уу...</option>
+                    </select>
+                </div>
+            </div>
+            <div class="fg"><label class="fl">ХҮССЭН ЦАГ</label>
+                <select class="fs" id="t">
+                    <option value="">Цаг сонгох...</option>
+                    <option>Өглөө (08:00-12:00)</option>
+                    <option>Өдөр (12:00-17:00)</option>
+                    <option>Орой (17:00-21:00)</option>
+                    <option>Шөнө (21:00-00:00)</option>
+                </select>
+            </div>
             <button class="sb" id="btn" onclick="send()">⚔ CHALLENGE ИЛГЭЭХ ⚔</button>
         </div>
         <div class="su" id="su">
-            <div class="sui">🔥</div>
-            <div class="sut">БҮРТГЭЛ ХҮЛЭЭЖ АВЛАА!</div>
-            <div class="sum">Амжилт хүсье, <span id="sn" style="color:#fff;font-size:17px;font-weight:700"></span>!<br><br>TikTok: <span style="color:#00aaff">@see.ko74</span> руу message илгээнэ үү.</div>
+            <div class="sui">⚔️</div>
+            <div class="sut">БҮРТГЭЛ АМЖИЛТТАЙ!</div>
+            <div class="sum">Амжилт хүсье, <span id="sn" style="color:#fff;font-size:17px;font-weight:700"></span>!<br><br>TikTok: <span style="color:#00aaff">@see.ko74</span> руу message илгээгээрэй.</div>
         </div>
     </div>
 </div>
 
-<footer><p>⚔ FOCUS_FLOW · <span>@see.ko74</span> · 3-STREAK CHALLENGE ⚔</p></footer>
+<footer><p>⚔ FOCUS_FLOW · <span>@see.ko74</span> · FOCUS · REFLEX · SPEED ⚔</p></footer>
 
 <script>
+const heroes = {
+    "Tank": ["Akai", "Alice", "Atlas", "Barats", "Baxia", "Belerick", "Chip", "Edith", "Esmeralda", "Franco", "Gatotkaca", "Gloo", "Grock", "Hylos", "Johnson", "Khufra", "Lolita", "Minotaur", "Phoveus", "Ruby", "Tigreal", "Uranus"],
+    "Fighter": ["Aldous", "Alpha", "Alucard", "Argus", "Arlott", "Aulus", "Badang", "Balmond", "Bane", "Barats", "Benedetta", "Cici", "Chou", "Dyrroth", "Freya", "Guinevere", "Hilda", "Jawhead", "Julian", "Kaja", "Khaleed", "Lapu-Lapu", "Leomord", "Martis", "Masha", "Minsitthar", "Paquito", "Phoveus", "Roger", "Ruby", "Silvanna", "Sun", "Terizla", "Thamuz", "X.Borg", "Yu Zhong", "Zilong"],
+    "Assassin": ["Aamon", "Alucard", "Benedetta", "Fanny", "Gusion", "Hanzo", "Hayabusa", "Helcurt", "Joy", "Karina", "Lancelot", "Ling", "Natalia", "Nolan", "Saber", "Selena", "Suyou", "Yi Sun-shin"],
+    "Mage": ["Alice", "Aurora", "Cecilion", "Chang'e", "Cyclops", "Esmeralda", "Eudora", "Faramis", "Gord", "Harith", "Harley", "Ive", "Kadita", "Kagura", "Lunox", "Luo Yi", "Lylia", "Nana", "Odette", "Pharsa", "Valentina", "Valir", "Vexana", "Xavier", "Zhask", "Zhuxin"],
+    "Marksman": ["Beatrix", "Brody", "Bruno", "Claude", "Clint", "Granger", "Hanabi", "Irithel", "Ixia", "Karrie", "Layla", "Lesley", "Melissa", "Miya", "Moskov", "Natan", "Popol and Kupa", "Roger", "Wanwan", "Yi Sun-shin"],
+    "Support": ["Angela", "Carmilla", "Diggie", "Estes", "Floryn", "Kaja", "Lolita", "Mathilda", "Minotaur", "Rafaela"]
+};
+
+function filterHeroes() {
+    const role = document.getElementById("roleSelect").value;
+    const heroSelect = document.getElementById("heroSelect");
+    heroSelect.innerHTML = '<option value="">Баатар сонгох...</option>';
+    if (role && heroes[role]) {
+        heroes[role].sort().forEach(h => {
+            let opt = document.createElement("option");
+            opt.value = h; opt.text = h;
+            heroSelect.appendChild(opt);
+        });
+    }
+}
+
 async function send(){
     const n=document.getElementById('n').value.trim();
     const i=document.getElementById('i').value.trim();
+    const r=document.getElementById('roleSelect').value;
+    const h=document.getElementById('heroSelect').value;
     const rt=document.getElementById('rtype').value;
     const t=document.getElementById('t').value;
     
-    if(!n || !i || !t){alert('Мэдээллээ бүрэн бөглөнө үү!');return;}
+    if(!n||!i||!h||!t){alert('Мэдээллээ бүрэн бөглөнө үү!');return;}
     
     const btn=document.getElementById('btn');
     btn.disabled=true; btn.textContent='ИЛГЭЭЖ БАЙНА...';
     
     try{
-        const r=await fetch('https://formspree.io/f/mrejrpoo',{
+        const resp=await fetch('https://formspree.io/f/mrejrpoo',{
             method:'POST',
             headers:{'Content-Type':'application/json','Accept':'application/json'},
             body:JSON.stringify({
                 'Тоглогч': n,
-                'ID': i,
-                'Төрөл': rt,
+                'Server ID': i,
+                'Role': r,
+                'Hero': h,
+                'Төлөв': rt,
                 'Цаг': t
             })
         });
-        if(r.ok){
+        if(resp.ok){
             document.getElementById('fa').style.display='none';
             document.getElementById('su').classList.add('show');
             document.getElementById('sn').textContent=n;
-        } else {
-            throw new Error();
-        }
+        }else{ throw new Error(); }
     }catch(e){
         btn.disabled=false; btn.textContent='⚔ CHALLENGE ИЛГЭЭХ ⚔';
-        alert('Алдаа гарлаа. Дахин оролдоно уу.');
+        alert('Алдаа гарлаа. Интернетээ шалгана уу!');
     }
 }
 </script>
