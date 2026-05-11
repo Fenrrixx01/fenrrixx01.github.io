@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Focus_Flow – 1vs1 Challenge</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #ff1e50;
+  --orange: #ff6b00;
+  --blue: #00aaff;
+  --dark: #060610;
+  --card: rgba(255,255,255,0.03);
+  --border: rgba(255,255,255,0.07);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+background: var(–dark);
+color: #fff;
+font-family: ‘Rajdhani’, sans-serif;
+min-height: 100vh;
+overflow-x: hidden;
+cursor: crosshair;
+}
+
+/* ── BACKGROUND ── */
+.bg-layer {
+position: fixed;
+inset: 0;
+z-index: 0;
+pointer-events: none;
+}
+.bg-grid {
+position: absolute; inset: 0;
+background-image:
+linear-gradient(rgba(0,120,255,0.04) 1px, transparent 1px),
+linear-gradient(90deg, rgba(0,120,255,0.04) 1px, transparent 1px);
+background-size: 40px 40px;
+}
+.bg-orb {
+position: absolute; border-radius: 50%; filter: blur(80px);
+}
+.orb1 { width:400px; height:400px; background:rgba(255,30,80,0.07); top:-100px; right:-100px; animation: drift 8s ease-in-out infinite; }
+.orb2 { width:350px; height:350px; background:rgba(0,150,255,0.07); bottom:-80px; left:-80px; animation: drift 10s ease-in-out infinite reverse; }
+.orb3 { width:250px; height:250px; background:rgba(255,107,0,0.05); top:40%; left:40%; animation: drift 6s ease-in-out infinite 2s; }
+@keyframes drift { 0%,100%{transform:translate(0,0);} 50%{transform:translate(30px,20px);} }
+
+.scanlines {
+position: absolute; inset: 0;
+background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+}
+
+/* ── HEADER ── */
+header {
+position: relative; z-index: 10;
+text-align: center;
+padding: 50px 20px 30px;
+border-bottom: 1px solid var(–border);
+}
+.top-bar {
+position: fixed; top:0; left:0; right:0; height:3px; z-index:100;
+background: linear-gradient(90deg, var(–red), var(–orange), var(–blue), var(–orange), var(–red));
+background-size: 200%;
+animation: barMove 3s linear infinite;
+}
+@keyframes barMove { 0%{background-position:0%} 100%{background-position:200%} }
+
+.mlbb-tag {
+display: inline-flex; align-items: center; gap: 8px;
+background: rgba(255,107,0,0.1);
+border: 1px solid rgba(255,107,0,0.3);
+padding: 6px 16px;
+border-radius: 2px;
+margin-bottom: 20px;
+animation: fadeDown 0.6s ease both;
+}
+.mlbb-hex {
+width: 22px; height: 22px;
+background: linear-gradient(135deg, var(–orange), var(–red));
+clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+display:flex; align-items:center; justify-content:center;
+font-family:‘Orbitron’,sans-serif; font-size:8px; font-weight:900; color:#fff;
+}
+.mlbb-tag span { font-family:‘Orbitron’,sans-serif; font-size:10px; letter-spacing:3px; color:var(–orange); }
+
+.hero-title {
+font-family: ‘Orbitron’, sans-serif;
+font-size: clamp(36px, 8vw, 60px);
+font-weight: 900;
+line-height: 1;
+background: linear-gradient(180deg, #fff 30%, #aac 100%);
+-webkit-background-clip: text; -webkit-text-fill-color: transparent;
+animation: fadeDown 0.7s ease both 0.1s;
+filter: drop-shadow(0 0 30px rgba(0,150,255,0.3));
+}
+.hero-sub {
+font-family: ‘Orbitron’, sans-serif;
+font-size: clamp(12px, 3vw, 16px);
+color: var(–red);
+letter-spacing: 6px;
+margin-top: 6px;
+animation: fadeDown 0.7s ease both 0.2s;
+text-shadow: 0 0 15px rgba(255,30,80,0.5);
+}
+.hero-desc {
+margin-top: 14px;
+font-size: 15px;
+color: #6688aa;
+letter-spacing: 1px;
+animation: fadeDown 0.7s ease both 0.3s;
+}
+
+@keyframes fadeDown { from{opacity:0;transform:translateY(-20px);} to{opacity:1;transform:none;} }
+
+/* ── STATS ROW ── */
+.stats-row {
+position: relative; z-index:10;
+display: flex; justify-content: center; gap: 0;
+border-bottom: 1px solid var(–border);
+animation: fadeIn 0.8s ease both 0.4s;
+}
+.stat-item {
+flex: 1; max-width: 160px;
+padding: 20px 10px;
+text-align: center;
+border-right: 1px solid var(–border);
+position: relative;
+}
+.stat-item:last-child { border-right: none; }
+.stat-item::before {
+content:’’; position:absolute; top:0; left:50%; transform:translateX(-50%);
+width:30px; height:2px;
+background: var(–red);
+}
+.stat-val { font-family:‘Orbitron’,sans-serif; font-size:26px; font-weight:900; color:#fff; text-shadow:0 0 15px rgba(0,150,255,0.6); }
+.stat-label { font-size:10px; color:#556677; letter-spacing:2px; font-weight:600; margin-top:2px; }
+
+/* ── RULES SECTION ── */
+.section {
+position: relative; z-index:10;
+max-width: 700px; margin: 0 auto;
+padding: 40px 20px;
+}
+.section-title {
+font-family:‘Orbitron’,sans-serif;
+font-size:11px; letter-spacing:5px; color:var(–orange);
+margin-bottom: 20px;
+display:flex; align-items:center; gap:10px;
+}
+.section-title::after { content:’’; flex:1; height:1px; background:linear-gradient(90deg,rgba(255,107,0,0.4),transparent); }
+
+.rules-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+@media(max-width:480px){ .rules-grid{grid-template-columns:1fr;} }
+
+.rule-card {
+background: var(–card);
+border: 1px solid var(–border);
+border-left: 2px solid var(–red);
+padding: 14px 16px;
+clip-path: polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);
+transition: border-color 0.2s, background 0.2s;
+}
+.rule-card:hover { border-left-color:var(–orange); background:rgba(255,107,0,0.05); }
+.rule-icon { font-size:20px; margin-bottom:6px; }
+.rule-title { font-family:‘Orbitron’,sans-serif; font-size:11px; color:var(–orange); letter-spacing:1px; margin-bottom:4px; }
+.rule-text { font-size:13px; color:#aabbcc; line-height:1.5; }
+
+/* ── REWARD SECTION ── */
+.reward-box {
+background: linear-gradient(135deg, rgba(255,107,0,0.06), rgba(255,30,80,0.06));
+border: 1px solid rgba(255,107,0,0.2);
+padding: 24px;
+position: relative;
+overflow: hidden;
+}
+.reward-box::before {
+content:’’; position:absolute; top:0;left:0;right:0;height:1px;
+background:linear-gradient(90deg,var(–orange),var(–red),var(–orange));
+}
+.reward-row {
+display:flex; align-items:center; gap:12px;
+padding: 10px 0;
+border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.reward-row:last-child { border-bottom:none; }
+.reward-diamond {
+width:8px; height:8px; background:var(–orange); transform:rotate(45deg);
+box-shadow:0 0 8px var(–orange); flex-shrink:0;
+}
+.reward-diamond.blue { background:var(–blue); box-shadow:0 0 8px var(–blue); }
+.reward-desc { font-size:14px; color:#ddeeff; }
+.reward-desc strong { color:var(–orange); font-family:‘Orbitron’,sans-serif; font-size:15px; }
+
+/* ── FORM SECTION ── */
+.form-wrapper {
+background: var(–card);
+border: 1px solid var(–border);
+border-top: 2px solid var(–red);
+padding: 30px;
+position: relative;
+}
+.form-wrapper::before {
+content: ‘CHALLENGE БҮРТГЭЛ’;
+position:absolute; top:-11px; left:20px;
+background:var(–dark);
+padding: 0 10px;
+font-family:‘Orbitron’,sans-serif; font-size:10px; letter-spacing:3px; color:var(–red);
+}
+
+.form-group { margin-bottom:16px; }
+.form-label {
+display:block; font-size:10px; letter-spacing:3px; color:#556677;
+font-weight:700; margin-bottom:8px; font-family:‘Orbitron’,sans-serif;
+}
+.form-input {
+width:100%; padding:12px 16px;
+background:rgba(255,255,255,0.03);
+border: 1px solid var(–border);
+border-bottom: 1px solid rgba(0,170,255,0.3);
+color:#fff;
+font-family:‘Rajdhani’,sans-serif; font-size:15px;
+outline:none;
+transition:border-color 0.2s, background 0.2s;
+border-radius:0;
+-webkit-appearance:none;
+}
+.form-input:focus {
+border-color:var(–blue);
+background:rgba(0,170,255,0.04);
+}
+.form-input::placeholder { color:#334455; }
+
+.form-select {
+width:100%; padding:12px 16px;
+background:rgba(255,255,255,0.03);
+border:1px solid var(–border);
+border-bottom:1px solid rgba(0,170,255,0.3);
+color:#fff;
+font-family:‘Rajdhani’,sans-serif; font-size:15px;
+outline:none;
+transition:border-color 0.2s;
+border-radius:0;
+cursor:pointer;
+}
+.form-select:focus { border-color:var(–blue); }
+.form-select option { background:#0a0a1a; }
+
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media(max-width:480px){ .form-row{grid-template-columns:1fr;} }
+
+.submit-btn {
+width:100%; padding:16px;
+background:linear-gradient(90deg, var(–red), var(–orange));
+border:none; color:#fff;
+font-family:‘Orbitron’,sans-serif; font-size:13px; font-weight:700;
+letter-spacing:4px; cursor:pointer;
+position:relative; overflow:hidden;
+clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);
+transition:opacity 0.2s, transform 0.1s;
+margin-top:6px;
+}
+.submit-btn:hover { opacity:0.9; transform:translateY(-1px); }
+.submit-btn:active { transform:translateY(0); }
+.submit-btn::after {
+content:’’; position:absolute; inset:0;
+background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);
+transform:translateX(-100%);
+animation:shimmer 2.5s infinite;
+}
+@keyframes shimmer { 0%{transform:translateX(-100%);} 100%{transform:translateX(100%);} }
+
+/* ── SUCCESS STATE ── */
+.success-box {
+display:none;
+text-align:center; padding:40px 20px;
+}
+.success-box.show { display:block; animation:fadeIn 0.5s ease; }
+.success-icon { font-size:50px; margin-bottom:16px; animation:bounce 0.6s ease; }
+@keyframes bounce { 0%{transform:scale(0);} 60%{transform:scale(1.2);} 100%{transform:scale(1);} }
+.success-title { font-family:‘Orbitron’,sans-serif; font-size:20px; color:var(–orange); letter-spacing:2px; margin-bottom:10px; }
+.success-msg { font-size:14px; color:#aabbcc; line-height:1.7; }
+.success-name { color:#fff; font-size:18px; font-weight:700; }
+.success-diamond { color:var(–orange); font-family:‘Orbitron’,sans-serif; }
+
+/* ── QUEUE LIST ── */
+.queue-section {
+position:relative; z-index:10;
+max-width:700px; margin:0 auto;
+padding:0 20px 60px;
+}
+#queue-list { display:flex; flex-direction:column; gap:8px; }
+.queue-item {
+display:flex; align-items:center; gap:14px;
+background:var(–card); border:1px solid var(–border);
+padding:12px 16px;
+animation:slideIn 0.4s ease;
+position:relative; overflow:hidden;
+}
+.queue-item::before {
+content:’’; position:absolute; left:0; top:0; bottom:0; width:2px;
+background:linear-gradient(180deg,var(–blue),var(–red));
+}
+@keyframes slideIn { from{opacity:0;transform:translateX(-20px);} to{opacity:1;transform:none;} }
+.queue-num { font-family:‘Orbitron’,sans-serif; font-size:11px; color:#334455; width:24px; }
+.queue-name { font-size:15px; font-weight:600; color:#ddeeff; flex:1; }
+.queue-hero { font-size:12px; color:#556677; }
+.queue-time { font-size:10px; color:#334455; font-family:‘Orbitron’,sans-serif; }
+.queue-empty { text-align:center; padding:30px; color:#334455; font-size:13px; letter-spacing:2px; font-family:‘Orbitron’,sans-serif; }
+
+/* ── FOOTER ── */
+footer {
+position:relative; z-index:10;
+text-align:center;
+padding:20px;
+border-top:1px solid var(–border);
+font-size:11px; color:#334455; letter-spacing:2px;
+}
+footer span { color:var(–red); }
+
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
+/* Mobile adjustments */
+@media(max-width:600px){
+header { padding:40px 16px 24px; }
+.section, .queue-section { padding-left:16px; padding-right:16px; }
+.form-wrapper { padding:20px 16px; }
+}
+</style>
+
+</head>
+<body>
+
+<div class="bg-layer">
+  <div class="bg-grid"></div>
+  <div class="bg-orb orb1"></div>
+  <div class="bg-orb orb2"></div>
+  <div class="bg-orb orb3"></div>
+  <div class="scanlines"></div>
+</div>
+
+<div class="top-bar"></div>
+
+<!-- HEADER -->
+
+<header>
+  <div class="mlbb-tag">
+    <div class="mlbb-hex">ML</div>
+    <span>MOBILE LEGENDS</span>
+  </div>
+  <h1 class="hero-title">FOCUS_FLOW</h1>
+  <div class="hero-sub">1vs1 · CHALLENGE</div>
+  <p class="hero-desc">Өдөр бүр · 3 дараалал · Hojood 3K · FREE TAX</p>
+</header>
+
+<!-- STATS -->
+
+<div class="stats-row">
+  <div class="stat-item">
+    <div class="stat-val">3K</div>
+    <div class="stat-label">HOJOOD</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-val" style="color:var(--red);">1v1</div>
+    <div class="stat-label">FORMAT</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-val">60💎</div>
+    <div class="stat-label">ШАГНАЛ</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-val" style="color:var(--orange);">FREE</div>
+    <div class="stat-label">TAX</div>
+  </div>
+</div>
+
+<!-- RULES -->
+
+<div class="section">
+  <div class="section-title">⚔ ДҮРЭМ</div>
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-icon">🎯</div>
+      <div class="rule-title">ФОРМАТ</div>
+      <div class="rule-text">3 дараалал тоглоно. Илүү олон удаа ялсан хүн ялагч болно.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-icon">⚡</div>
+      <div class="rule-title">HOJOOD</div>
+      <div class="rule-text">Хоёул Hojood 3K байх ёстой. Шударга тэгш нөхцөл.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-icon">💎</div>
+      <div class="rule-title">ШАГНАЛ</div>
+      <div class="rule-text">Намайг ялвал 60 diamond авна. Би ялвал — FREE (tax байхгүй).</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-icon">📅</div>
+      <div class="rule-title">ЦАГ</div>
+      <div class="rule-text">Өдөр бүр авах боломжтой. Бүртгүүлсний дараа message илгээнэ.</div>
+    </div>
+  </div>
+</div>
+
+<!-- REWARD -->
+
+<div class="section" style="padding-top:0;">
+  <div class="section-title">🏆 ШАГНАЛ</div>
+  <div class="reward-box">
+    <div class="reward-row">
+      <div class="reward-diamond"></div>
+      <div class="reward-desc">Чи ялвал → <strong>60 💎</strong> diamond авна (tax байхгүй)</div>
+    </div>
+    <div class="reward-row">
+      <div class="reward-diamond blue"></div>
+      <div class="reward-desc">Би ялвал → <strong>FREE</strong>, ямар ч зүйл өгөхгүй</div>
+    </div>
+    <div class="reward-row">
+      <div class="reward-diamond"></div>
+      <div class="reward-desc">Өдөр бүр шинэ challenger авна — давтан тоглох боломжтой</div>
+    </div>
+  </div>
+</div>
+
+<!-- FORM -->
+
+<div class="section" style="padding-top:0;">
+  <div class="section-title">✍ БҮРТГҮҮЛЭХ</div>
+
+  <div class="form-wrapper">
+    <div id="form-area">
+      <div class="form-group">
+        <label class="form-label">ТОГЛОГЧИЙН НЭР (IN-GAME)</label>
+        <input type="text" class="form-input" id="inp-name" placeholder="Таны MLBB нэр...">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">SERVER ID</label>
+          <input type="text" class="form-input" id="inp-id" placeholder="123456789">
+        </div>
+        <div class="form-group">
+          <label class="form-label">ДҮРИЙН НЭР</label>
+          <input type="text" class="form-input" id="inp-hero" placeholder="Ямар дүр...">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">ХҮССЭН ЦАГ</label>
+        <select class="form-select" id="inp-time">
+          <option value="">Цаг сонгох...</option>
+          <option>Өглөө (08:00 – 12:00)</option>
+          <option>Өдөр (12:00 – 17:00)</option>
+          <option>Орой (17:00 – 21:00)</option>
+          <option>Шөнө (21:00 – 24:00)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">НЭМЭЛТ МЕССЕЖ (заавал биш)</label>
+        <input type="text" class="form-input" id="inp-note" placeholder="Ямар нэг зүйл хэлэх уу...">
+      </div>
+      <button class="submit-btn" onclick="submitForm()">⚔ CHALLENGE ИЛГЭЭХ ⚔</button>
+    </div>
+
+```
+<div class="success-box" id="success-box">
+  <div class="success-icon">⚔️</div>
+  <div class="success-title">БҮРТГЭЛ АМЖИЛТТАЙ!</div>
+  <div class="success-msg">
+    <span class="success-name" id="suc-name"></span> тоглогч бүртгэгдлээ!<br><br>
+    Focus_Flow тантай холбогдох болно.<br>
+    TikTok: <span style="color:var(--blue);">@see.ko74</span> руу message илгээгээрэй.<br><br>
+    <span class="success-diamond">💎 60 Diamond хожих боломжтой — амжилт хүсье!</span>
+  </div>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- QUEUE -->
+
+<div class="queue-section">
+  <div class="section-title">📋 ХҮЛЭЭЛТИЙН ЖАГСААЛТ</div>
+  <div id="queue-list">
+    <div class="queue-empty" id="empty-msg">Одоогоор бүртгэл байхгүй байна</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+  <p>⚔ FOCUS_FLOW · <span>@see.ko74</span> · FOCUS · REFLEX · SPEED ⚔</p>
+  <p style="margin-top:6px;">Mobile Legends Bang Bang – 1v1 Daily Challenge</p>
+</footer>
+
+<script>
+const queue = [];
+
+const HEROES = ['Layla','Miya','Clint','Granger','Brody','Beatrix','Yi Sun-shin','Hanabi',
+  'Lesley','Claude','Moskov','Irithel','Karrie','Kimmy','Wanwan','Popol and Kupa',
+  'Bruno','Natan','Melissa','Ixia','Xavier','Kagura','Harith','Lunox','Cyclops',
+  'Kadita','Chang\'e','Yve','Aurora','Pharsa','Lylia','Vale','Eudora','Nana','Luo Yi',
+  'Odette','Alice','Cecilion','Belerick','Tigreal','Atlas','Johnson','Gloo','Akai',
+  'Franco','Bane','Uranus','Hylos','Grock','Khufra','Lolita','Barats','Edith',
+  'Fredrinn','Aulus','Paquito','Chou','Martis','Aldous','X.Borg','Silvanna','Yu Zhong',
+  'Terizla','Zilong','Balmond','Masha','Badang','Argus','Roger','Hayabusa','Lancelot',
+  'Gusion','Ling','Hanzo','Fanny','Karina','Saber','Helcurt','Natalia','Benedetta',
+  'Selena','Mathilda','Floryn','Angela','Estes','Rafaela','Diggie','Nana'];
+
+function getTime() {
+  const now = new Date();
+  return now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+}
+
+function submitForm() {
+  const name = document.getElementById('inp-name').value.trim();
+  const id   = document.getElementById('inp-id').value.trim();
+  const hero = document.getElementById('inp-hero').value.trim();
+  const time = document.getElementById('inp-time').value;
+
+  if (!name) { shake('inp-name'); return; }
+  if (!id)   { shake('inp-id');   return; }
+  if (!hero) { shake('inp-hero'); return; }
+  if (!time) { shake('inp-time'); return; }
+
+  // Add to queue
+  queue.push({ name, id, hero, time, ts: getTime() });
+  renderQueue();
+
+  // Show success
+  document.getElementById('form-area').style.display = 'none';
+  const sb = document.getElementById('success-box');
+  sb.classList.add('show');
+  document.getElementById('suc-name').textContent = name;
+}
+
+function shake(id) {
+  const el = document.getElementById(id);
+  el.style.borderColor = 'var(--red)';
+  el.style.animation = 'shake 0.4s ease';
+  el.focus();
+  setTimeout(() => { el.style.animation = ''; el.style.borderColor = ''; }, 500);
+}
+
+function renderQueue() {
+  const list = document.getElementById('queue-list');
+  document.getElementById('empty-msg')?.remove();
+
+  // Remove existing items to re-render
+  list.innerHTML = '';
+
+  if (queue.length === 0) {
+    list.innerHTML = '<div class="queue-empty" id="empty-msg">Одоогоор бүртгэл байхгүй байна</div>';
+    return;
+  }
+
+  queue.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'queue-item';
+    div.innerHTML = `
+      <div class="queue-num">#${i+1}</div>
+      <div class="queue-name">${escHtml(item.name)}</div>
+      <div class="queue-hero">${escHtml(item.hero)}</div>
+      <div class="queue-time">${item.ts}</div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// CSS shake keyframe inject
+const style = document.createElement('style');
+style.textContent = `@keyframes shake {
+  0%,100%{transform:translateX(0);}
+  20%{transform:translateX(-8px);}
+  40%{transform:translateX(8px);}
+  60%{transform:translateX(-5px);}
+  80%{transform:translateX(5px);}
+}`;
+document.head.appendChild(style);
+</script>
+
+</body>
+</html>
