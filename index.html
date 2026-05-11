@@ -27,25 +27,17 @@
         .ri{font-size:18px;margin-bottom:4px}
         .rt{font-family:'Orbitron',sans-serif;font-size:10px;color:#ff6b00;margin-bottom:4px}
         .rx{font-size:13px;color:#aabbcc;line-height:1.5}
-        .rb{background:linear-gradient(135deg,rgba(255,107,0,0.06),rgba(255,30,80,0.06));border:1px solid rgba(255,107,0,0.2);padding:20px;position:relative}
-        .rb::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,#ff6b00,#ff1e50,#ff6b00)}
-        .rr{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
-        .rr:last-child{border-bottom:none}
-        .rd{width:8px;height:8px;background:#ff6b00;transform:rotate(45deg);flex-shrink:0}
-        .rd.b{background:#00aaff}
-        .rdx{font-size:14px;color:#ddeeff}
-        .rdx strong{color:#ff6b00;font-family:'Orbitron',sans-serif}
         .fw{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-top:2px solid #ff1e50;padding:28px;position:relative;margin-top:0}
         .fw::before{content:'CHALLENGE БҮРТГЭЛ';position:absolute;top:-11px;left:20px;background:#060610;padding:0 10px;font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;color:#ff1e50}
         .fg{margin-bottom:14px}
         .fl{display:block;font-size:10px;letter-spacing:3px;color:#556677;font-weight:700;margin-bottom:7px;font-family:'Orbitron',sans-serif}
         .fi,.fs{width:100%;padding:11px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-bottom:1px solid rgba(0,170,255,0.3);color:#fff;font-family:'Rajdhani',sans-serif;font-size:15px;outline:none;border-radius:0}
         .fs option{background:#0a0a1a}
-        .fi:focus,.fs:focus{border-color:#00aaff;background:rgba(0,170,255,0.04)}
         .fr{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:480px){.fr{grid-template-columns:1fr}}
         .sb{width:100%;padding:15px;background:linear-gradient(90deg,#ff1e50,#ff6b00);border:none;color:#fff;font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;letter-spacing:4px;cursor:pointer;margin-top:6px;transition:opacity .2s}
         .su{display:none;text-align:center;padding:36px 16px}
         .su.show{display:block}
+        .tax-info{background:rgba(255,30,80,0.1);border:1px dashed #ff1e50;padding:12px;margin-top:10px;font-size:13px;display:none}
         footer{text-align:center;padding:20px;border-top:1px solid rgba(255,255,255,0.07);font-size:11px;color:#334455;letter-spacing:2px}
         footer span{color:#ff1e50}
     </style>
@@ -66,16 +58,16 @@
     <div class="si"><div class="sv">3-0</div><div class="sl">STREAK</div></div>
     <div class="si"><div class="sv" style="color:#ff1e50">1v1</div><div class="sl">FORMAT</div></div>
     <div class="si"><div class="sv">60💎</div><div class="sl">REWARD</div></div>
-    <div class="si"><div class="sv" style="color:#ff6b00">TAX</div><div class="sl">RESET</div></div>
+    <div class="si"><div class="sv" style="color:#ff6b00">1.5K</div><div class="sl">TAX</div></div>
 </div>
 
 <div class="sec">
     <div class="st">⚔️ ШИНЭЧЛЭГДСЭН ДҮРЭМ</div>
     <div class="rg">
-        <div class="rc"><div class="ri">🎯</div><div class="rt">WIN STREAK</div><div class="rx">Шагнал авахын тулд заавал <b>3 дараалж</b> ялах ёстой.</div></div>
-        <div class="rc"><div class="ri">❌</div><div class="rt">RESET</div><div class="rx">1 л хожигдвол өмнөх бүх хожил хүчингүй болж хасагдана.</div></div>
-        <div class="rc"><div class="ri">🔄</div><div class="rt">RE-ENTRY</div><div class="rx">Хожигдсон бол <b>Tax</b> төлж эрхээ сэргээн дахин оролцоно.</div></div>
-        <div class="rc"><div class="ri">💎</div><div class="rt">REWARD</div><div class="rx">Намайг 3-0 харьцаатай ялж 60 Diamond шууд аваарай.</div></div>
+        <div class="rc"><div class="ri">🎯</div><div class="rt">WIN STREAK</div><div class="rx">3 дараалж ялах ёстой. 1 хожигдвол дараалал шууд тасарна.</div></div>
+        <div class="rc"><div class="ri">🔄</div><div class="rt">RE-ENTRY</div><div class="rx">Хожигдсон бол <b>1,500₮</b> төлж эрхээ сэргээн дахин оролцоно.</div></div>
+        <div class="rc"><div class="ri">💳</div><div class="rt">DANS</div><div class="rx">Tax шилжүүлэх: <b>85367060</b> (Гүйлгээний утга дээр нэрээ бичих)</div></div>
+        <div class="rc"><div class="ri">💎</div><div class="rt">REWARD</div><div class="rx">3-0 харьцаатай ялалт байгуулж 60 Diamond шууд аваарай.</div></div>
     </div>
 </div>
 
@@ -86,29 +78,28 @@
             <div class="fg"><label class="fl">ТОГЛОГЧИЙН НЭР</label><input class="fi" id="n" placeholder="Таны MLBB нэр..."></div>
             <div class="fr">
                 <div class="fg"><label class="fl">SERVER ID</label><input class="fi" id="i" placeholder="123456789"></div>
-                <div class="fg"><label class="fl">ТӨЛӨВ</label>
-                    <select class="fs" id="rtype">
+                <div class="fg"><label class="fl">БҮРТГЭЛИЙН ТӨРӨЛ</label>
+                    <select class="fs" id="rtype" onchange="checkTax()">
                         <option value="Шинэ бүртгэл">Шинэ (Анх удаа)</option>
-                        <option value="Tax төлсөн">Tax төлж орох</option>
+                        <option value="Tax төлөх">Tax төлж орох (1,500₮)</option>
                     </select>
                 </div>
             </div>
-            <!-- Role & Hero Selection -->
-            <div class="fr">
+            <div id="taxBox" class="tax-info">
+                ⚠️ <b>TAX: 1,500₮</b> | Данс: <b>85367060</b><br>
+                Гүйлгээний утга дээр MLBB нэрээ заавал бичээрэй!
+            </div>
+            <div class="fr" style="margin-top:14px">
                 <div class="fg">
-                    <label class="fl">ROLE (БАЙРЛАЛ)</label>
+                    <label class="fl">ROLE</label>
                     <select class="fs" id="roleSelect" onchange="filterHeroes()">
                         <option value="">Role сонгох...</option>
-                        <option value="Tank">Tank</option>
-                        <option value="Fighter">Fighter</option>
-                        <option value="Assassin">Assassin</option>
-                        <option value="Mage">Mage</option>
-                        <option value="Marksman">Marksman</option>
-                        <option value="Support">Support</option>
+                        <option>Tank</option><option>Fighter</option><option>Assassin</option>
+                        <option>Mage</option><option>Marksman</option><option>Support</option>
                     </select>
                 </div>
                 <div class="fg">
-                    <label class="fl">HERO (БААТАР)</label>
+                    <label class="fl">HERO</label>
                     <select class="fs" id="heroSelect">
                         <option value="">Role сонгоно уу...</option>
                     </select>
@@ -117,10 +108,8 @@
             <div class="fg"><label class="fl">ХҮССЭН ЦАГ</label>
                 <select class="fs" id="t">
                     <option value="">Цаг сонгох...</option>
-                    <option>Өглөө (08:00-12:00)</option>
-                    <option>Өдөр (12:00-17:00)</option>
-                    <option>Орой (17:00-21:00)</option>
-                    <option>Шөнө (21:00-00:00)</option>
+                    <option>Өглөө (08:00-12:00)</option><option>Өдөр (12:00-17:00)</option>
+                    <option>Орой (17:00-21:00)</option><option>Шөнө (21:00-00:00)</option>
                 </select>
             </div>
             <button class="sb" id="btn" onclick="send()">⚔ CHALLENGE ИЛГЭЭХ ⚔</button>
@@ -146,22 +135,24 @@ const heroes = {
 };
 
 function filterHeroes() {
-    const role = document.getElementById("roleSelect").value;
-    const heroSelect = document.getElementById("heroSelect");
-    heroSelect.innerHTML = '<option value="">Баатар сонгох...</option>';
-    if (role && heroes[role]) {
-        heroes[role].sort().forEach(h => {
-            let opt = document.createElement("option");
-            opt.value = h; opt.text = h;
-            heroSelect.appendChild(opt);
+    const r = document.getElementById("roleSelect").value;
+    const s = document.getElementById("heroSelect");
+    s.innerHTML = '<option value="">Баатар сонгох...</option>';
+    if (r && heroes[r]) {
+        heroes[r].sort().forEach(h => {
+            let o = document.createElement("option"); o.value = h; o.text = h; s.appendChild(o);
         });
     }
+}
+
+function checkTax() {
+    const rt = document.getElementById('rtype').value;
+    document.getElementById('taxBox').style.display = (rt === 'Tax төлөх') ? 'block' : 'none';
 }
 
 async function send(){
     const n=document.getElementById('n').value.trim();
     const i=document.getElementById('i').value.trim();
-    const r=document.getElementById('roleSelect').value;
     const h=document.getElementById('heroSelect').value;
     const rt=document.getElementById('rtype').value;
     const t=document.getElementById('t').value;
@@ -177,11 +168,11 @@ async function send(){
             headers:{'Content-Type':'application/json','Accept':'application/json'},
             body:JSON.stringify({
                 'Тоглогч': n,
-                'Server ID': i,
-                'Role': r,
+                'ID': i,
                 'Hero': h,
-                'Төлөв': rt,
-                'Цаг': t
+                'Төрөл': rt,
+                'Цаг': t,
+                'Тайлбар': rt === 'Tax төлөх' ? '1500₮ Tax төлнө' : 'Шинэ тоглогч'
             })
         });
         if(resp.ok){
@@ -191,7 +182,7 @@ async function send(){
         }else{ throw new Error(); }
     }catch(e){
         btn.disabled=false; btn.textContent='⚔ CHALLENGE ИЛГЭЭХ ⚔';
-        alert('Алдаа гарлаа. Интернетээ шалгана уу!');
+        alert('Алдаа гарлаа!');
     }
 }
 </script>
